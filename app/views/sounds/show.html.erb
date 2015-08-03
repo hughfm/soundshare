@@ -1,0 +1,7 @@
+<h1><%= @sound.name %></h1>
+
+<%= image_tag attachment_url(@sound, :audio, :fill, 500, 500) %>
+
+<%= link_to 'back', root_path %> |
+<%= link_to 'edit', edit_sound_path(@sound) %> |
+<%= link_to 'delete', @sound, method: :delete %>

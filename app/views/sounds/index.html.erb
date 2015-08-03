@@ -1,0 +1,9 @@
+<h1>listing all sounds</h1>
+
+<%= link_to 'new sound', new_sound_path %>
+
+<ul>
+  <% @sounds.each do |sound| %>
+    <li><%= link_to sound.name, sound %></li>
+  <% end %>
+</ul>
