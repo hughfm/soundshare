@@ -11,7 +11,6 @@ class SoundsController < ApplicationController
 
   def create
     @sound = Sound.new sound_params
-
     if @sound.save
       redirect_to root_path, notice: "Sound has been saved."
     else

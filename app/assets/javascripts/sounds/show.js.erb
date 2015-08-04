@@ -1,0 +1,31 @@
+$( document ).ready(function() {
+  var wavesurfer = Object.create(WaveSurfer);
+
+  wavesurfer.init({
+    container: document.querySelector('#wave'),
+    waveColor: 'black',
+    progressColor: 'gray'
+  });
+
+  wavesurfer.on('loading', function(integer) {
+    $('progress').val(integer);
+  });
+
+  wavesurfer.on('ready', function () {
+    $('#progress').hide();
+    $('#wave img').remove();
+    wavesurfer.play();
+  });
+
+  wavesurfer.on('error', function() {
+    $('#wave i').removeClass('fa-spinner');
+    $('#wave i').removeClass('fa-pulse');
+    $('#wave i').addClass('fa-exclamation-circle');
+  });
+
+  $('#playPause').on('click', function(e) {
+    wavesurfer.playPause();
+  });
+
+  wavesurfer.load($('#wave').data('url'));
+});

@@ -1,6 +1,17 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'sounds/show' %>
+<% end %>
+
 <h1><%= @sound.name %></h1>
 
-<%= image_tag attachment_url(@sound, :audio, :fill, 500, 500) %>
+<div id="progress">
+  loading...
+  <progress value="0" max="100"></progress>
+</div>
+
+<div id="wave" data-url="<%= attachment_url(@sound, :audio) %>"><i class="fa fa-spinner fa-3x fa-pulse"></i></div>
+
+<button type="button" id="playPause"> Play / Pause </button>
 
 <%= link_to 'back', root_path %> |
 <%= link_to 'edit', edit_sound_path(@sound) %> |

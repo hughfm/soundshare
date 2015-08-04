@@ -1,7 +1,4 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
-
-$( document ).ready(function() {
+$(document).ready(function() {
   $(document).on("upload:start", "form", function(e) {
     $(this).find("input[type=submit]").attr("disabled", true);
   });
@@ -17,5 +14,4 @@ $( document ).ready(function() {
       $(this).find("input[type=submit]").removeAttr("disabled");
     }
   });
-
 });

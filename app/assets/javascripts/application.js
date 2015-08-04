@@ -12,6 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require refile
-//= require_tree .
+//= require wavesurfer.min
