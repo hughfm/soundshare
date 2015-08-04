@@ -13,3 +13,4 @@
 /tmp
 
 /config/initializers/refile.rb
+.env
