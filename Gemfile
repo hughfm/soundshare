@@ -24,14 +24,10 @@ gem 'jbuilder', '~> 2.0'
 gem "refile", require: "refile/rails"
 gem "refile-mini_magick"
 gem "refile-s3"
-
 gem 'font-awesome-sass'
-
-gem 'rails_12factor', group: :production
-
 gem 'puma'
-
 gem 'figaro'
+gem 'rails_12factor', group: :production
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
