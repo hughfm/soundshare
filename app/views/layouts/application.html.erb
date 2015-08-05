@@ -8,21 +8,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if logged_in? %>
-    <%= link_to current_user.name, current_user %> |
-    <%= link_to 'log out', logout_path, method: :delete %>
-  <% else %>
-    <%= link_to 'log in', login_path %>
-    <%= link_to 'sign up', signup_path %>
-  <% end %>
+  <div class="container">
+    <% if logged_in? %>
+      <%= link_to current_user.name, current_user %> |
+      <%= link_to 'log out', logout_path, method: :delete %>
+    <% else %>
+      <%= link_to 'log in', login_path %>
+      <%= link_to 'sign up', signup_path %>
+    <% end %>
 
-  <% flash.each do |name, message| %>
-    <%= content_tag :div, message, class: name %>
-  <% end %>
+    <% flash.each do |name, message| %>
+      <%= content_tag :div, message, class: name %>
+    <% end %>
 
-  <%= yield %>
+    <%= yield %>
 
-  <%= debug(params) if Rails.env.development? %>
-
+    <footer>
+      <%= debug(params) if Rails.env.development? %>
+    </footer>
+  </div>
 </body>
 </html>

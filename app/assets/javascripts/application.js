@@ -14,3 +14,5 @@
 //= require jquery_ujs
 //= require refile
 //= require wavesurfer.min
+//= require bootstrap-sprockets
+//= require flat-ui.min

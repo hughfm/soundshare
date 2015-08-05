@@ -3,30 +3,65 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #wave {
-  border: 1px solid black;
   text-align: center;
   position: relative;
 }
 
 #wave i {
-  // margin: auto;
-  // position: absolute;
-  // top: 0;
-  // left: 0;
-  // bottom: 0;
-  // right: 0;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 
-// .spinning {
-//   animation: spinner 1s linear infinite;
-// }
-//
-// @keyframes spinner {
-//   0% {
-//     transform: rotateZ(0deg);
-//   }
-//
-//   100% {
-//     transform: rotateZ(360deg);
-//   }
-// }
+#progress {
+  display: none;
+}
+
+progress {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 100%;
+  height: 20px;
+
+  margin: 10px 0;
+}
+
+progress::-webkit-progress-bar {
+  border-radius: 5px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #16a085;
+  border-radius: 5px;
+}
+
+#sound_audio::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+#sound_audio {
+  border: 3px dashed #ddd;
+  padding: 30px;
+  cursor: pointer;
+  text-align: center;
+  color: rgba(255,255,255,0);
+  text-align: center;
+  width: 100%;
+  -webkit-user-select: none;
+}
+
+#sound_audio::before {
+  content: '\A Drop File / Click to Choose';
+  display: block;
+  outline: none;
+  white-space: pre;
+  -webkit-user-select: none;
+  color: #16a085;
+  text-align: center;
+}
+
+#sound_audio:hover {
+  border-color: #333;
+}

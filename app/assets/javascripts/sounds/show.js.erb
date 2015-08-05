@@ -12,20 +12,28 @@ $( document ).ready(function() {
   });
 
   wavesurfer.on('ready', function () {
-    $('#progress').hide();
+    $('#progress').remove();
     $('#wave i').remove();
     wavesurfer.play();
+    $('#loadButton').remove();
   });
 
   wavesurfer.on('error', function() {
     $('#wave i').removeClass('fa-spinner');
     $('#wave i').removeClass('fa-pulse');
     $('#wave i').addClass('fa-exclamation-circle');
+    $('#loadButton').removeAttr("disabled");
   });
 
   $('#playPause').on('click', function(e) {
     wavesurfer.playPause();
   });
 
-  wavesurfer.load($('#wave').data('url'));
+  $('#loadButton').on('click', function() {
+    wavesurfer.load($('#wave').data('url'));
+    $(this).attr("disabled", true);
+    $('#progress').show();
+    $('#wave i').removeClass('fa-music');
+    $('#wave i').addClass('fa-spinner fa-pulse'); 
+  });
 });

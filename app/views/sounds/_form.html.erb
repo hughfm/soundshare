@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'sounds/form' %>
+<% end %>
+
 <%= form_for @sound do |f| %>
   <% if @sound.errors.any? %>
     <div class="errors">
@@ -9,19 +13,21 @@
     </div>
   <% end %>
 
-  <div class="form-field">
+  <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="form-field">
-    <%= f.label :audio %>
+  <div class="form-group">
+    <%= f.label :audio, "Audio File" %>
     <%= f.attachment_field :audio, direct: true, presigned: true %>
+    <progress value="0" max="100"></progress>
   </div>
 
-  <progress value="0" max="100"></progress>
+  <div id="wave"></div>
+  <button type="button" id="playPause">Play/Pause</button>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-block btn-lg btn-primary" %>
   </div>
 <% end %>

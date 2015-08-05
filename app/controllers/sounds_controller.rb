@@ -1,16 +1,18 @@
 class SoundsController < ApplicationController
   before_action :set_sound, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @sounds = Sound.all
   end
 
   def new
-    @sound = Sound.new
+    @sound = current_user.sounds.build
   end
 
   def create
-    @sound = Sound.new sound_params
+    @sound = current_user.sounds.build sound_params
     if @sound.save
       redirect_to root_path, notice: "Sound has been saved."
     else
@@ -47,5 +49,9 @@ class SoundsController < ApplicationController
 
     def set_sound
       @sound = Sound.find params[:id]
+    end
+
+    def correct_user
+      redirect_to root_url unless current_user?(@sound.user)
     end
 end
