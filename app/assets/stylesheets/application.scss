@@ -24,11 +24,34 @@
 
 @import "sounds";
 
-.container {
+.application {
   max-width: 960px;
   margin: 0 auto;
+  padding-top: 30px;
 }
 
 footer {
   margin-top: 50px;
+  border-top: 2px solid #95A5A6;
+  background: none;
+  padding: 5px;
+}
+
+footer p {
+  font-size: 0.75em;
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+.top-buffer {
+  margin-top: 10px;
+}
+
+.underline {
+  border-bottom: 2px solid #34495E;
 }

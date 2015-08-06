@@ -1,0 +1,12 @@
+<% if object.errors.any? %>
+  <div class="error-explanation">
+    <p>Please correct the following <%= pluralize object.errors.count, "problem" %>:</p>
+  </div>
+  <div class="errors">
+    <ul>
+      <% object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

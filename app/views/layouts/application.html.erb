@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Project2</title>
+  <title>SoundShare</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= yield :head %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="container">
-    <% if logged_in? %>
-      <%= link_to current_user.name, current_user %> |
-      <%= link_to 'log out', logout_path, method: :delete %>
-    <% else %>
-      <%= link_to 'log in', login_path %>
-      <%= link_to 'sign up', signup_path %>
+<div class="application">
+  <div class="container-fluid">
+    <%= render 'shared/navbar' %>
+    <% flash.each do |name, message| %>
+      <%= content_tag :div, message, class: "alert alert-#{name}" %>
     <% end %>
 
-    <% flash.each do |name, message| %>
-      <%= content_tag :div, message, class: name %>
-    <% end %>
 
     <%= yield %>
 
+
     <footer>
+      <p>Created by <%= link_to "Hugh Middleton", "//www.twitter.com/hughmiddleton" %></p>
       <%= debug(params) if Rails.env.development? %>
     </footer>
   </div>
+</div>
 </body>
 </html>

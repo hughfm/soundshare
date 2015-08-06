@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :sounds
 
   get '/signup' => 'users#new'
+  get '/users/:id/password' => 'users#edit_password', as: "edit_password"
+  patch '/users/:id/password' => 'users#update_password', as: "update_password"
+
   get '/login' => 'session#new'
   post '/login' => 'session#create'
   delete '/logout' => 'session#destroy'

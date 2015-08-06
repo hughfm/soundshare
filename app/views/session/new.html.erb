@@ -1,18 +1,8 @@
-<% provide :title, "log in" %>
-<h1>log in</h1>
-
-<%= form_for :session, url: login_path do |f| %>
-  <div class="form-field">
-    <%= f.label :email %>
-    <%= f.email_field :email %>
+<div class="row">
+  <div class="col-sm-5">
+    <h1>log in</h1>
   </div>
-
-  <div class="form-field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
+  <div class="col-sm-7">
+    <%= render partial: 'form' %>
   </div>
-
-  <div class="actions">
-    <%= f.submit "log in" %>
-  </div>
-<% end %>
+</div>

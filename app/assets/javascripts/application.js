@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
+//= require bootstrap/dropdown
 //= require refile
 //= require wavesurfer.min
-//= require bootstrap-sprockets
 //= require flat-ui.min

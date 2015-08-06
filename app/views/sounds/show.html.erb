@@ -1,19 +1,15 @@
 <% content_for :head do %>
+  <%= javascript_include_tag 'sounds/waveform' %>
   <%= javascript_include_tag 'sounds/show' %>
 <% end %>
 
 <h1><%= @sound.name %></h1>
 <h3>Uploaded by: <%= link_to @sound.user.name, @sound.user %></h3>
 
-<div id="progress">
-  loading...
-  <progress value="0" max="100"></progress>
-</div>
+<button type="button" id="load-button" class="btn btn-block btn-lg btn-primary">Load</button>
 
-<div id="wave" data-url="<%= attachment_url(@sound, :audio) %>"><i class="fa fa-music fa-3x"></i></div>
+<%= render 'waveform' %>
 
-<button type="button" id="loadButton">Load</button>
-<button type="button" id="playPause">Play/Pause</button>
 
 <%= link_to 'back', root_path %> |
 <%= link_to 'edit', edit_sound_path(@sound) %> |

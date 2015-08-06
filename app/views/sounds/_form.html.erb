@@ -1,17 +1,11 @@
 <% content_for :head do %>
+  <%= javascript_include_tag 'sounds/waveform' %>
   <%= javascript_include_tag 'sounds/form' %>
 <% end %>
 
+
 <%= form_for @sound do |f| %>
-  <% if @sound.errors.any? %>
-    <div class="errors">
-      <ul>
-        <% @sound.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render partial: 'shared/errors', locals: { object: @sound } %>
 
   <div class="form-group">
     <%= f.label :name %>
@@ -22,10 +16,8 @@
     <%= f.label :audio, "Audio File" %>
     <%= f.attachment_field :audio, direct: true, presigned: true %>
     <progress value="0" max="100"></progress>
+    <p id="file-name"></p>
   </div>
-
-  <div id="wave"></div>
-  <button type="button" id="playPause">Play/Pause</button>
 
   <div class="actions">
     <%= f.submit class: "btn btn-block btn-lg btn-primary" %>

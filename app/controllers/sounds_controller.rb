@@ -14,7 +14,8 @@ class SoundsController < ApplicationController
   def create
     @sound = current_user.sounds.build sound_params
     if @sound.save
-      redirect_to root_path, notice: "Sound has been saved."
+      flash[:success] = "Sound has been saved."
+      redirect_to root_path
     else
       render :new
     end
@@ -28,7 +29,8 @@ class SoundsController < ApplicationController
 
   def update
     if @sound.update sound_params
-      redirect_to @sound, notice: "Sound updated."
+      flash[:success] = "Sound updated."
+      redirect_to @sound
     else
       render :edit
     end
@@ -36,9 +38,11 @@ class SoundsController < ApplicationController
 
   def destroy
     if @sound.destroy
-      redirect_to root_path, notice: "Sound deleted."
+      flash[:success] = "Sound deleted."
+      redirect_to root_path
     else
-      redirect_to @sound, error: "Sound could not be deleted."
+      flash[:danger] = "Sound could not be deleted."
+      redirect_to @sound
     end
   end
 

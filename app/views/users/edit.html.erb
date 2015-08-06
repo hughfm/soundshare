@@ -1,5 +1,23 @@
-<h1>edit user</h1>
-
-<%= link_to 'back', root_path %>
-
-<%= render 'form' %>
+<h1>edit account details</h1>
+<div class="row">
+  <div class="col-sm-7">
+    <%= render partial: 'form', locals: { action: "Save Changes", fields: "account_fields" } %>
+  </div>
+  <div class="col-sm-5">
+    <div class="row top-buffer">
+      <div class="col-sm-12">
+        <%= link_to 'Cancel', @user, class: "btn btn-lg btn-default btn-block" %>
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-12">
+        <%= link_to 'Change Password', edit_password_path(@user), class: "btn btn-lg btn-info btn-block" %>
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-12">
+        <%= link_to 'Delete Account', @user, method: :delete, class: "btn btn-lg btn-danger btn-block" %>
+      </div>
+    </div>
+  </div>
+</div>

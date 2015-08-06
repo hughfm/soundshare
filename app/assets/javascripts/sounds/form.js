@@ -15,51 +15,14 @@ $(document).ready(function() {
     }
   });
 
-  var wavesurfer = Object.create(WaveSurfer);
+  var fileInput = $('#sound_audio');
 
-  wavesurfer.init({
-    container: document.querySelector('#wave'),
-    waveColor: 'black',
-    progressColor: 'gray'
+  fileInput.on('change', function(event) {
+    if (event.target.files.length) {
+      wavesurfer.loadBlob(event.target.files[0]);
+    } else {
+      wavesurfer.fireEvent('error', 'Not a file');
+    }
   });
-
-  $('#sound_audio').on('change', function() {
-    // if (e.dataTransfer.files.length) {
-      debugger;
-      wavesurfer.loadBlob($(this).val());
-    // } else {
-      // wavesurfer.fireEvent('error', 'Not a file');
-    // }
-  });
-
-  // wavesurfer.on('loading', function(integer) {
-  //   $('progress').val(integer);
-  // });
-
-  wavesurfer.on('ready', function () {
-    // $('#progress').remove();
-    // $('#wave i').remove();
-    wavesurfer.play();
-    // $('#loadButton').remove();
-  });
-
-  // wavesurfer.on('error', function() {
-  //   $('#wave i').removeClass('fa-spinner');
-  //   $('#wave i').removeClass('fa-pulse');
-  //   $('#wave i').addClass('fa-exclamation-circle');
-  //   $('#loadButton').removeAttr("disabled");
-  // });
-
-  $('#playPause').on('click', function(e) {
-    wavesurfer.playPause();
-  });
-
-  // $('#loadButton').on('click', function() {
-  //   wavesurfer.load($('#wave').data('url'));
-  //   $(this).attr("disabled", true);
-  //   $('#progress').show();
-  //   $('#wave i').removeClass('fa-music');
-  //   $('#wave i').addClass('fa-spinner fa-pulse');
-  // });
 
 }); // document.ready

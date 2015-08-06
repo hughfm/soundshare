@@ -1,9 +1,9 @@
 <h1>listing all sounds</h1>
 
-<%= link_to 'new sound', new_sound_path %>
+<% if logged_in? %>
+  <%= link_to 'add new sound', new_sound_path %>
+<% end %>
 
 <ul>
-  <% @sounds.each do |sound| %>
-    <li><%= link_to sound.name, sound %></li>
-  <% end %>
+  <%= render @sounds %>
 </ul>

@@ -1,0 +1,28 @@
+<div id="wavesurfer">
+  <div id="waveform" <%= "data-url= #{attachment_url(@sound, :audio)}" if @sound.audio %>>
+      <div class="progress progress-striped active" id="progress-bar">
+          <div class="progress-bar progress-bar-info"></div>
+      </div>
+      <!-- Here be the waveform -->
+  </div>
+
+  <div class="controls">
+      <button class="btn btn-primary" data-action="back">
+          <i class="glyphicon glyphicon-step-backward"></i>
+      </button>
+
+      <button class="btn btn-primary" data-action="play">
+          <i class="glyphicon glyphicon-play"></i>
+          /
+          <i class="glyphicon glyphicon-pause"></i>
+      </button>
+
+      <button class="btn btn-primary" data-action="forth">
+          <i class="glyphicon glyphicon-step-forward"></i>
+      </button>
+
+      <button class="btn btn-primary" data-action="toggle-mute">
+          <i class="glyphicon glyphicon-volume-off"></i>
+      </button>
+  </div>
+</div>
