@@ -8,8 +8,11 @@ Rails.application.routes.draw do
   resources :sounds
 
   get '/signup' => 'users#new'
-  get '/users/:id/password' => 'users#edit_password', as: "edit_password"
-  patch '/users/:id/password' => 'users#update_password', as: "update_password"
+  get '/users/:id/password' => 'users#edit_password', as: 'edit_password'
+  patch '/users/:id/password' => 'users#update_password', as: 'update_password'
+
+  get '/sound/:id/share' => 'sounds#share', as: 'share_sound'
+  post '/sound/:id/share' => 'sounds#authorize', as: 'authorize_sound'
 
   get '/login' => 'session#new'
   post '/login' => 'session#create'

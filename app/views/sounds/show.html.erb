@@ -6,11 +6,19 @@
 <div class="row">
   <div class="col-sm-4">
     <h3><%= @sound.name %></h3>
-    <p><%= content_tag(:span, "Public", class: "label label-default") if @sound.public? %></p>
+    <div>
+      <%= render partial: 'shared/tags', locals: { sound: @sound } %>
+    </div>
+    <div class="top-buffer">
+      <% if @shares.any? %>
+        <p>Shared with</p>
+        <% @shares.each do |share| %>
+          <%= render partial: 'share', locals: { share: share } %>
+        <% end %>
+      <% end %>
+    </div>
     <p>
-      <% if current_user? @sound.owner %>
-        My Sound
-      <% else %>
+      <% unless current_user? @sound.owner %>
         Uploaded by: <%= link_to(@sound.owner.full_name, @sound.owner) %>
       <% end %>
     </p>
@@ -23,10 +31,13 @@
 
 <% if current_user? @sound.owner %>
   <div class="row">
-    <div class="col-sm-3 col-sm-offset-3 top-buffer">
+    <div class="col-sm-2 col-sm-offset-3 top-buffer">
+      <%= link_to 'share', share_sound_path(@sound), class: "btn btn-lg btn-inverse btn-block" %>
+    </div>
+    <div class="col-sm-2 top-buffer">
       <%= link_to 'edit', edit_sound_path(@sound), class: "btn btn-lg btn-primary btn-block" %>
     </div>
-    <div class="col-sm-3 top-buffer">
+    <div class="col-sm-2 top-buffer">
       <%= link_to 'delete', @sound, method: :delete, class: "btn btn-lg btn-danger btn-block" %>
     </div>
   </div>

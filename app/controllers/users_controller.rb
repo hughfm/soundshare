@@ -24,7 +24,9 @@ class UsersController < ApplicationController
 
   def show
     if current_user?(@user)
-      @sounds = @user.sounds
+      @sounds = @user.sounds.order(created_at: :desc)
+    elsif logged_in?
+      @sounds = current_user.sounds_by(@user)
     else
       @sounds = @user.sounds.public_share
     end

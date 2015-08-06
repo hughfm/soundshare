@@ -1,5 +1,5 @@
 class SoundsController < ApplicationController
-  before_action :set_sound, only: [:show, :edit, :update, :destroy]
+  before_action :set_sound, only: [:show, :edit, :update, :destroy, :share, :authorize]
   before_action :logged_in_user, except: [:index, :show]
   before_action :authorized_to_listen, only: :show
   before_action :correct_user, only: [:edit, :update, :destroy]
@@ -27,6 +27,7 @@ class SoundsController < ApplicationController
   end
 
   def show
+    @shares = @sound.authorized_users
   end
 
   def edit
@@ -49,6 +50,19 @@ class SoundsController < ApplicationController
       flash[:danger] = "Sound could not be deleted."
       redirect_to @sound
     end
+  end
+
+  def share
+    @users = User.where.not(id: current_user.id)
+  end
+
+  def authorize
+    user = User.find params[:user_id]
+    sound = Sound.find params[:sound_id]
+
+    user.authorized_sounds << sound
+
+    redirect_to sound
   end
 
   private
