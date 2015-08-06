@@ -1,5 +1,5 @@
 class Sound < ActiveRecord::Base
-  attachment :audio
+  attachment :audio 
   belongs_to :owner, class_name: "User", foreign_key: :user_id
   has_many :authorizations
   has_many :authorized_users, through: :authorizations, source: :user

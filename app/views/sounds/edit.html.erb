@@ -1,5 +1,16 @@
-<h1>edit sound</h1>
+<div class="row">
+  <div class="col-sm-5">
+    <h1>edit sound</h1>
+  </div>
+  <div class="col-sm-7">
+    <%= render 'form' %>
 
-<%= link_to 'back', root_path %>
+  </div>
+</div>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-sm-12 top-buffer">
+    <p>Preview</p>
+    <%= render partial: 'waveform', locals: { sound: @sound } %>
+  </div>
+</div>

@@ -21,10 +21,14 @@
 
 </div>
 
-
-
 <% if current_user? @sound.owner %>
-  <%= link_to 'edit', edit_sound_path(@sound), class: "btn btn-lg btn-primary" %>
-  <%= link_to 'delete', @sound, method: :delete, class: "btn btn-lg btn-danger" %>
+  <div class="row">
+    <div class="col-sm-3 col-sm-offset-3 top-buffer">
+      <%= link_to 'edit', edit_sound_path(@sound), class: "btn btn-lg btn-primary btn-block" %>
+    </div>
+    <div class="col-sm-3 top-buffer">
+      <%= link_to 'delete', @sound, method: :delete, class: "btn btn-lg btn-danger btn-block" %>
+    </div>
+  </div>
 <% end %>
 <!-- <button type="button" id="load-button" class="btn btn-block btn-lg btn-primary">Load</button> -->
