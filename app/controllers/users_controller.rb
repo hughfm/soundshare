@@ -16,13 +16,18 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = "You have successfully signed up!"
-      redirect_to @user
+      redirect_to edit_user_path(@user)
     else
       render :new
     end
   end
 
   def show
+    if current_user?(@user)
+      @sounds = @user.sounds
+    else
+      @sounds = @user.sounds.public_share
+    end
   end
 
   def edit

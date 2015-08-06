@@ -3,14 +3,28 @@
   <%= javascript_include_tag 'sounds/show' %>
 <% end %>
 
-<h1><%= @sound.name %></h1>
-<h3>Uploaded by: <%= link_to @sound.user.name, @sound.user %></h3>
+<div class="row">
+  <div class="col-sm-4">
+    <h3><%= @sound.name %></h3>
+    <p><%= content_tag(:span, "Public", class: "label label-default") if @sound.public? %></p>
+    <p>
+      <% if current_user? @sound.owner %>
+        My Sound
+      <% else %>
+        Uploaded by: <%= link_to(@sound.owner.full_name, @sound.owner) %>
+      <% end %>
+    </p>
+  </div>
+  <div class="col-sm-8">
+    <%= render partial: 'waveform', locals: { sound: @sound } %>
+  </div>
 
-<button type="button" id="load-button" class="btn btn-block btn-lg btn-primary">Load</button>
-
-<%= render 'waveform' %>
+</div>
 
 
-<%= link_to 'back', root_path %> |
-<%= link_to 'edit', edit_sound_path(@sound) %> |
-<%= link_to 'delete', @sound, method: :delete %>
+
+<% if current_user? @sound.owner %>
+  <%= link_to 'edit', edit_sound_path(@sound), class: "btn btn-lg btn-primary" %>
+  <%= link_to 'delete', @sound, method: :delete, class: "btn btn-lg btn-danger" %>
+<% end %>
+<!-- <button type="button" id="load-button" class="btn btn-block btn-lg btn-primary">Load</button> -->

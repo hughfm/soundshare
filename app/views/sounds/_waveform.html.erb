@@ -1,5 +1,5 @@
 <div id="wavesurfer">
-  <div id="waveform" <%= "data-url= #{attachment_url(@sound, :audio)}" if @sound.audio %>>
+  <div id="waveform" <%= "data-url= #{attachment_url(sound, :audio)}" if sound.audio %>>
       <div class="progress progress-striped active" id="progress-bar">
           <div class="progress-bar progress-bar-info"></div>
       </div>

@@ -1,10 +1,15 @@
 class SoundsController < ApplicationController
   before_action :set_sound, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, except: [:index, :show]
+  before_action :authorized_to_listen, only: :show
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
-    @sounds = Sound.all
+    if logged_in?
+      @sounds = current_user.sound_feed
+    else
+      @sounds = Sound.public_share
+    end
   end
 
   def new
@@ -48,7 +53,7 @@ class SoundsController < ApplicationController
 
   private
     def sound_params
-      params.require(:sound).permit(:name, :audio)
+      params.require(:sound).permit(:name, :audio, :public)
     end
 
     def set_sound
@@ -56,6 +61,13 @@ class SoundsController < ApplicationController
     end
 
     def correct_user
-      redirect_to root_url unless current_user?(@sound.user)
+      redirect_to root_url unless current_user?(@sound.owner)
+    end
+
+    def authorized_to_listen
+      unless @sound.public? || current_user?(@sound.owner)
+        flash[:danger] = "Not authorized to listen to this sound."
+        redirect_to root_url
+      end
     end
 end

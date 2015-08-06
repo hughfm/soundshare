@@ -1,11 +1,11 @@
 $( document ).ready(function() {
   wavesurfer.on('ready', function () {
     wavesurfer.play();
-    $('#load-button').remove();
+    // $('#load-button').remove();
   });
 
-  $('#load-button').on('click', function() {
-    wavesurfer.load($('#waveform').data('url'));
-    $(this).attr("disabled", true);
-  });
+  wavesurfer.load($('#waveform').data('url'));
+  // $('#load-button').on('click', function() {
+  //   $(this).attr("disabled", true);
+  // });
 });
