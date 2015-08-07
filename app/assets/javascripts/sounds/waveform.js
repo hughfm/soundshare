@@ -52,5 +52,11 @@ $( document ).ready(function() {
   wavesurfer.on('destroy', hideProgress);
   wavesurfer.on('error', hideProgress);
 
+  wavesurfer.on('ready', function() {
+    [].forEach.call(document.querySelectorAll('[data-action]'), function (el) {
+      $(el).removeAttr('disabled');
+    });
+  });
+
   window.wavesurfer = wavesurfer;
 });
