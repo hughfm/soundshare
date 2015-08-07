@@ -59,7 +59,7 @@ class UsersController < ApplicationController
   def update_password
     if @user.update user_params
       flash[:success] = "Password changed successfully."
-      redirect_to @user
+      redirect_to edit_user_path(@user)
     else
       render :edit_password
     end
