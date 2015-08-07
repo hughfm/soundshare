@@ -9,9 +9,9 @@
     <div>
       <%= render partial: 'shared/tags', locals: { sound: @sound } %>
     </div>
-    <div class="top-buffer">
+    <div class="top-buffer-lg">
       <% if @shares && @shares.any? %>
-        <p>Shared with</p>
+        <p>Sharing with:</p>
         <div>
           <% @shares.each do |share| %>
             <%= render partial: 'share', locals: { share: share } %>

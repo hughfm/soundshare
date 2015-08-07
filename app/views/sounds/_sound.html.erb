@@ -1,8 +1,8 @@
 <div>
   <div class="row">
     <div class="col-sm-8">
-      <h4><%= link_to sound.title, sound %></h4>
-      <p>Uploaded by: <%= link_to sound.owner.full_name, sound.owner %></p>
+      <h6><span class="fui-mic side-buffers"></span><%= link_to sound.title, sound %></h6>
+      <p><small>Uploaded by <%= link_to sound.owner.full_name, sound.owner %> on <%= sound.created_at.strftime "%A %d %B" %></small></p>
     </div>
     <div class="col-sm-4 top-buffer">
       <%= render partial: 'shared/tags', locals: { sound: sound } %>

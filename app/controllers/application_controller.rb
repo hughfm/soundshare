@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   include SessionHelper
 
   private
+
+    # redirect_to login page if not already logged in 
     def logged_in_user
       unless logged_in?
         flash[:danger] = "Please log in."

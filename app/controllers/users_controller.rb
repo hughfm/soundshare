@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
+  # set @user
   before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_password, :update_password]
-  before_action :logged_in_user, only: [:edit, :update]
+
+  # restrict to logged in users
+  before_action :logged_in_user, only: [:edit, :update, :index]
+
+  # current_user must be @user
   before_action :correct_user, only: [:edit, :update, :destroy, :edit_password, :update_password]
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.order(last_name: :asc).paginate(page: params[:page])
   end
 
   def new

@@ -53,6 +53,10 @@ footer p {
   margin-top: 10px;
 }
 
+.top-buffer-lg {
+  margin-top: 50px;
+}
+
 .underline {
   border-bottom: 2px solid #34495E;
 }
@@ -63,4 +67,13 @@ footer p {
 
 .side-buffers {
   margin: 0 20px;
+}
+
+.list > div {
+  border-bottom: 1px solid #95A5A6;
+  margin: 20px 0;
+}
+
+.list > div:last-of-type {
+  border-bottom: none;
 }
