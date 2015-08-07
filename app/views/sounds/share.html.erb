@@ -1,13 +1,16 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'users/share' %>
+<% end %>
+
 <div class="row">
   <div class="col-sm-5">
     <h3><%= @sound.name %></h3>
   </div>
   <div class="col-sm-7">
     <h4>share with: </h4>
-    <ul>
-      <% @users.each do |user| %>
-        <li><%= link_to user.full_name, share_sound_path(sound_id: @sound.id, user_id: user.id), method: :post %></li>
+      <%= form_for :shares, url: authorize_sound_path(@sound) do |f| %>
+        <%= f.collection_select(:user_ids, @users, :id, :full_name, { include_hidden: false, selected: @sound.authorized_users.ids }, { multiple: "multiple", class: "form-control multiselect multiselect-info" }) %>
+        <%= f.submit class: "btn btn-lg btn-primary" %>
       <% end %>
-    </ul>
   </div>
 </div>

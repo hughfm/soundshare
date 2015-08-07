@@ -27,7 +27,7 @@ class SoundsController < ApplicationController
   end
 
   def show
-    @shares = @sound.authorized_users
+    @shares = @sound.authorized_users if current_user?(@sound.owner)
   end
 
   def edit
@@ -57,11 +57,20 @@ class SoundsController < ApplicationController
   end
 
   def authorize
+    user_ids = params[:shares][:user_ids].reject { |item| @sound.authorized_users.ids.map(&:to_s).include? item }
+    users = User.find user_ids
+    sound = Sound.find params[:id]
+
+    sound.authorized_users << users
+
+    redirect_to sound
+  end
+
+  def deauthorize
     user = User.find params[:user_id]
-    sound = Sound.find params[:sound_id]
-
-    user.authorized_sounds << sound
-
+    sound = Sound.find params[:id]
+    authorization = Authorization.find_by user: user, sound: sound
+    authorization.destroy
     redirect_to sound
   end
 

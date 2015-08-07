@@ -12,9 +12,11 @@
     <div class="top-buffer">
       <% if @shares.any? %>
         <p>Shared with</p>
-        <% @shares.each do |share| %>
-          <%= render partial: 'share', locals: { share: share } %>
-        <% end %>
+        <div>
+          <% @shares.each do |share| %>
+            <%= render partial: 'share', locals: { share: share } %>
+          <% end %>
+        </div>
       <% end %>
     </div>
     <p>
@@ -25,21 +27,18 @@
   </div>
   <div class="col-sm-8">
     <%= render partial: 'waveform', locals: { sound: @sound } %>
+    <% if current_user? @sound.owner %>
+      <div class="row">
+        <div class="col-sm-4 top-buffer">
+          <%= link_to 'share', share_sound_path(@sound), class: "btn btn-lg btn-inverse btn-block" %>
+        </div>
+        <div class="col-sm-4 top-buffer">
+          <%= link_to 'edit', edit_sound_path(@sound), class: "btn btn-lg btn-primary btn-block" %>
+        </div>
+        <div class="col-sm-4 top-buffer">
+          <%= link_to 'delete', @sound, method: :delete, class: "btn btn-lg btn-danger btn-block" %>
+        </div>
+      </div>
+    <% end %>
   </div>
-
 </div>
-
-<% if current_user? @sound.owner %>
-  <div class="row">
-    <div class="col-sm-2 col-sm-offset-3 top-buffer">
-      <%= link_to 'share', share_sound_path(@sound), class: "btn btn-lg btn-inverse btn-block" %>
-    </div>
-    <div class="col-sm-2 top-buffer">
-      <%= link_to 'edit', edit_sound_path(@sound), class: "btn btn-lg btn-primary btn-block" %>
-    </div>
-    <div class="col-sm-2 top-buffer">
-      <%= link_to 'delete', @sound, method: :delete, class: "btn btn-lg btn-danger btn-block" %>
-    </div>
-  </div>
-<% end %>
-<!-- <button type="button" id="load-button" class="btn btn-block btn-lg btn-primary">Load</button> -->

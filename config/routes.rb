@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get '/sound/:id/share' => 'sounds#share', as: 'share_sound'
   post '/sound/:id/share' => 'sounds#authorize', as: 'authorize_sound'
+  delete '/sound/:id/share' => 'sounds#deauthorize', as: 'deauthorize_sound'
 
   get '/login' => 'session#new'
   post '/login' => 'session#create'

@@ -1,1 +1,2 @@
-<%= content_tag(:span, share.full_name, class: "label label-default") %>
+<span class="label label-primary"><%= link_to content_tag(:span, "", class: "fui-cross-circle"), deauthorize_sound_path(@sound, user_id: share.id), method: :delete %>
+<%= share.full_name %></span>

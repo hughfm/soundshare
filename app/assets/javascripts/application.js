@@ -17,3 +17,8 @@
 //= require refile
 //= require wavesurfer.min
 //= require flat-ui.min
+
+$(document).ready(function() {
+  $("select").select2({
+  });
+});

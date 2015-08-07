@@ -12,3 +12,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( sounds/show.js )
 Rails.application.config.assets.precompile += %w( sounds/form.js )
 Rails.application.config.assets.precompile += %w( sounds/waveform.js )
+Rails.application.config.assets.precompile += %w( users/share.js )

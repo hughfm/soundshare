@@ -1,10 +1,14 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'sounds/waveform' %>
+  <%= javascript_include_tag 'sounds/show' %>
+<% end %>
+
 <div class="row">
   <div class="col-sm-5">
     <h1>edit sound</h1>
   </div>
   <div class="col-sm-7">
     <%= render 'form' %>
-
   </div>
 </div>
 
