@@ -3,14 +3,14 @@
 <% end %>
 
 <div class="row">
-  <div class="col-sm-5">
-    <h3><%= @sound.name %></h3>
+  <div class="col-sm-4">
+    <h3><%= link_to @sound.name, @sound %></h3>
   </div>
-  <div class="col-sm-7">
+  <div class="col-sm-8">
     <h4>share with: </h4>
       <%= form_for :shares, url: authorize_sound_path(@sound) do |f| %>
         <%= f.collection_select(:user_ids, @users, :id, :full_name, { include_hidden: false, selected: @sound.authorized_users.ids }, { multiple: "multiple", class: "form-control multiselect multiselect-info" }) %>
-        <%= f.submit class: "btn btn-lg btn-primary" %>
+        <%= f.submit class: "btn btn-lg btn-primary top-buffer" %>
       <% end %>
   </div>
 </div>

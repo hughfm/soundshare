@@ -23,6 +23,6 @@ class User < ActiveRecord::Base
 
   def sounds_by(owner)
     authorized_ids = "SELECT sound_id FROM authorizations INNER JOIN sounds ON (authorizations.sound_id = sounds.id) WHERE sounds.user_id = :owner_id AND authorizations.user_id = :user_id"
-    Sound.distinct.where("id IN (#{authorized_ids}) OR public = true", user_id: id, owner_id: owner.id).order(created_at: :desc)
+    Sound.distinct.where("user_id = :owner_id AND (id IN (#{authorized_ids}) OR public = true)", user_id: id, owner_id: owner.id).order(created_at: :desc)
   end
 end
