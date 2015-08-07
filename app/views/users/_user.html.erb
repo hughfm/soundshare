@@ -1,1 +1,11 @@
-<li><%= link_to user.full_name, user %></li>
+<div class="row">
+  <div class="col-sm-12">
+    <div>
+      <span class="fui-user side-buffers"></span>
+      <%= link_to user.full_name, user %>
+    </div>
+    <div class="top-buffer">
+      <p><span class="fui-mic side-buffers"></span> <%= user.sounds.count %></p>
+    </div>
+  </div>
+</div>

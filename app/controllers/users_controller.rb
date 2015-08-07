@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy, :edit_password, :update_password]
 
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   def new

@@ -1,14 +1,14 @@
 class SoundsController < ApplicationController
-  before_action :set_sound, only: [:show, :edit, :update, :destroy, :share, :authorize]
+  before_action :set_sound, only: [:show, :edit, :update, :destroy, :share, :authorize, :deauthorize]
   before_action :logged_in_user, except: [:index, :show]
   before_action :authorized_to_listen, only: :show
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy, :share, :authorize, :deauthorize]
 
   def index
     if logged_in?
-      @sounds = current_user.sound_feed
+      @sounds = current_user.sound_feed.paginate(page: params[:page])
     else
-      @sounds = Sound.public_share
+      @sounds = Sound.public_share.paginate(page: params[:page])
     end
   end
 
@@ -68,10 +68,9 @@ class SoundsController < ApplicationController
 
   def deauthorize
     user = User.find params[:user_id]
-    sound = Sound.find params[:id]
-    authorization = Authorization.find_by user: user, sound: sound
+    authorization = Authorization.find_by user: user, sound: @sound
     authorization.destroy
-    redirect_to sound
+    redirect_to @sound
   end
 
   private
