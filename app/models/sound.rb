@@ -4,10 +4,10 @@ class Sound < ActiveRecord::Base
   has_many :authorizations, dependent: :destroy
   has_many :authorized_users, through: :authorizations, source: :user
 
-  validates :audio, :user_id, presence: true
+  validates :audio, :owner, presence: true
   validates :audio_id, uniqueness: true
 
-  scope :public_share, -> { where(public: true) }
+  scope :public_share, -> { where(public: true).order(created_at: :desc) }
 
   self.per_page = 10
 

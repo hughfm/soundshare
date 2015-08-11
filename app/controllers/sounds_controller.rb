@@ -22,6 +22,9 @@ class SoundsController < ApplicationController
       flash[:success] = "Sound has been saved."
       redirect_to root_path
     else
+      #########################
+      ## THIS DOESN'T WORK!! ##
+      #########################
       render :new
     end
   end
