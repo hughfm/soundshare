@@ -1,6 +1,6 @@
 # SoundShare
 
-__[SoundShare](sound-share.herokuapp.com)__ is a Rails application primarily for exploring the uploading, playing and sharing of audio files.
+__[SoundShare](//sound-share.herokuapp.com)__ is a Rails application primarily for exploring the uploading, playing and sharing of audio files.
 
 ### Brief / Functionality
 Users must sign up for an account before they can upload audio files.
