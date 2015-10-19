@@ -5,7 +5,7 @@ $(document).ready(function() {
 
   $(document).on("upload:progress", "form", function(e) {
     detail = e.originalEvent.detail;
-    percentComplete = Math.round(detail.loaded / detail.total * 100);
+    percentComplete = Math.round(detail.progress.loaded / detail.progress.total * 100);
     $("progress").val(percentComplete);
   });
 
