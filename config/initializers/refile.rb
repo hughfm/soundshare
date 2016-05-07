@@ -7,6 +7,8 @@ aws = {
   bucket: "hughfm-wdi-project-2",
 }
 
-Refile.cache = Refile::S3.new(prefix: "cache", **aws)
-Refile.store = Refile::S3.new(prefix: "store", **aws)
-Refile.cdn_host = "//d380ny7ob5f9xn.cloudfront.net"
+if Rails.env.production?
+  Refile.cache = Refile::S3.new(prefix: "cache", **aws)
+  Refile.store = Refile::S3.new(prefix: "store", **aws)
+  Refile.cdn_host = "//d380ny7ob5f9xn.cloudfront.net"
+end
