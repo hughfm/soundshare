@@ -35,7 +35,7 @@ en:
   layouts:
     application:
       sign_in: log in
-      sign_out: log out
+      sign_out: Log Out
       sign_up: join
   passwords:
     create:
