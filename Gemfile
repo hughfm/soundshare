@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby "2.2.2"
 
 gem 'rails', '4.2.3'
 gem 'pg'
@@ -14,6 +13,8 @@ gem "refile-s3"
 gem 'font-awesome-sass'
 gem 'puma'
 gem 'figaro'
+gem "clearance"
+gem "pundit"
 gem 'rails_12factor', group: :production
 
 gem 'will_paginate',           '3.0.7'
@@ -24,8 +25,19 @@ gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'meta_request'
   gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails'
 end
+
+group :development do
+  gem 'web-console', '~> 2.0'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'launchy'
+end
+
+ruby "2.2.2"

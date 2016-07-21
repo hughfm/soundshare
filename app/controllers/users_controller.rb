@@ -1,36 +1,17 @@
-class UsersController < ApplicationController
-  # set @user
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_password, :update_password]
-
-  # restrict to logged in users
-  before_action :logged_in_user, only: [:edit, :update, :index]
-
-  # current_user must be @user
-  before_action :correct_user, only: [:edit, :update, :destroy, :edit_password, :update_password]
+class UsersController < Clearance::UsersController
+  skip_after_action :verify_authorized, only: [:new, :create]
 
   def index
-    @users = User.order(last_name: :asc).paginate(page: params[:page])
-  end
-
-  def new
-    @user = User.new
-  end
-
-  def create
-    @user = User.new user_params
-    if @user.save
-      log_in @user
-      flash[:success] = "You have successfully signed up!"
-      redirect_to edit_user_path(@user)
-    else
-      render :new
-    end
+    @users = policy_scope(User.order(last_name: :asc).paginate(page: params[:page]))
   end
 
   def show
-    if current_user?(@user)
+    @user = User.find(params[:id])
+    authorize @user
+
+    if current_user == @user
       @sounds = @user.sounds.order(created_at: :desc)
-    elsif logged_in?
+    elsif signed_in?
       @sounds = current_user.sounds_by(@user)
     else
       @sounds = @user.sounds.public_share
@@ -38,18 +19,38 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+    authorize @user
   end
 
   def update
+    @user = User.find(params[:id])
+    authorize @user
+
+    params[:user].delete :password
+    params[:user].delete :password_confirmation
+
+    unless params[:user][:new_password].blank?
+      if @user.authenticated? params[:user][:current_password]
+        params[:user][:password] = params[:user][:new_password]
+        params[:user][:password_confirmation] = params[:user][:new_password_confirmation]
+      else
+        flash[:alert] = "Please check your password and try again."
+        redirect_to(edit_user_path(@user)) and return
+      end
+    end
+
     if @user.update user_params
-      flash[:success] = "User successfully updated."
-      redirect_to @user
+      flash[:success] = "Account updated successfully."
+      redirect_to edit_user_path(@user)
     else
       render :edit
     end
   end
 
   def destroy
+    @user = User.find(params[:id])
+
     if @user.destroy
       flash[:success] = "User deleted."
       redirect_to users_path
@@ -58,31 +59,14 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit_password
-  end
-
-  def update_password
-    if @user.update user_params
-      flash[:success] = "Password changed successfully."
-      redirect_to edit_user_path(@user)
-    else
-      render :edit_password
-    end
-  end
-
   private
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
-    end
 
-    def set_user
-      @user = User.find_by id: params[:id]
-    end
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+  end
 
-    def correct_user
-      unless current_user?(@user)
-        flash[:danger] = "Woops! You are not authorised to perform that action."
-        redirect_to(root_url)
-      end
-    end
+  def user_from_params
+    params[:user] ? User.new(user_params) : User.new
+  end
+
 end

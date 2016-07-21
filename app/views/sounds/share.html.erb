@@ -8,9 +8,10 @@
   </div>
   <div class="col-sm-8">
     <h4>share with: </h4>
-      <%= form_for :shares, url: authorize_sound_path(@sound) do |f| %>
+      <%= form_for :authorizations, url: authorizations_path do |f| %>
+        <%= f.hidden_field :sound_id, value: @sound.id %>
         <%= f.collection_select(:user_ids, @users, :id, :full_name, { include_hidden: false, selected: @sound.authorized_users.ids }, { multiple: "multiple", class: "form-control multiselect multiselect-info" }) %>
-        <%= f.submit class: "btn btn-lg btn-primary top-buffer" %>
+        <%= f.submit "Share", class: "btn btn-lg btn-primary top-buffer" %>
       <% end %>
   </div>
 </div>

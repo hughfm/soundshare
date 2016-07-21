@@ -11,12 +11,7 @@
     </div>
     <div class="row top-buffer">
       <div class="col-sm-12">
-        <%= link_to 'Change Password', edit_password_path(@user), class: "btn btn-lg btn-info btn-block" %>
-      </div>
-    </div>
-    <div class="row top-buffer">
-      <div class="col-sm-12">
-        <%= link_to 'Delete Account', @user, method: :delete, class: "btn btn-lg btn-danger btn-block" %>
+        <%= link_to 'Delete Account', @user, data: { method: :delete, confirm: 'Are you sure?' }, class: "btn btn-lg btn-danger btn-block" %>
       </div>
     </div>
   </div>

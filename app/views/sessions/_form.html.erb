@@ -1,4 +1,4 @@
-<%= form_for :session, url: login_path do |f| %>
+<%= form_for :session, url: session_path do |f| %>
   <div class="form-group">
     <%= f.label :email %>
     <%= f.email_field :email, class: "form-control" %>
@@ -9,5 +9,9 @@
     <%= f.password_field :password, class: "form-control" %>
   </div>
 
-  <%= f.submit "Log in", class: "btn btn-lg btn-primary btn-block" %>
+  <%= f.submit class: "btn btn-lg btn-primary btn-block" %>
+
+  <div class="other-links">
+    <%= link_to t(".forgot_password"), new_password_path %>
+  </div>
 <% end %>

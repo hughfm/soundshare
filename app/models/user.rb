@@ -1,12 +1,11 @@
 class User < ActiveRecord::Base
-  has_secure_password
+  include Clearance::User
+
   has_many :sounds, dependent: :destroy
   has_many :authorizations
-  has_many :authorized_sounds, through: :authorizations, source: :sound
-  before_save { self.email = email.downcase }
+  has_many :authorized_sounds, -> { distinct }, through: :authorizations, source: :sound
 
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+  validates :password, confirmation: true
 
   self.per_page = 10
 

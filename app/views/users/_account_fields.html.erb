@@ -10,3 +10,14 @@
   <%= f.label :email %>
   <%= f.email_field :email, class: "form-control" %>
 </div>
+
+<div class="form-group">
+  <%= f.label :current_password, "Current Password (required if changing password)" %>
+  <%= f.password_field :current_password, class: "form-control" %>
+
+  <%= f.label :new_password, "New Password (leave blank if unchanged)" %>
+  <%= f.password_field :new_password, class: "form-control" %>
+
+  <%= f.label :new_password_confirmation %>
+  <%= f.password_field :new_password_confirmation, class: "form-control" %>
+</div>

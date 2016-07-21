@@ -1,17 +1,18 @@
 class ApplicationController < ActionController::Base
+  include Clearance::Controller
+  include Pundit
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-
-  include SessionHelper
+  before_action :require_login
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
-    # redirect_to login page if not already logged in 
-    def logged_in_user
-      unless logged_in?
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
+  end
 end

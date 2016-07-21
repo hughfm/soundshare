@@ -77,3 +77,11 @@ footer p {
 .list > div:last-of-type {
   border-bottom: none;
 }
+
+.alert-notice {
+  @extend .alert-info;
+}
+
+.alert-alert {
+  @extend .alert-danger;
+}

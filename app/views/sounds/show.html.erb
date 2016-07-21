@@ -10,17 +10,17 @@
       <%= render partial: 'shared/tags', locals: { sound: @sound } %>
     </div>
     <div class="top-buffer-lg">
-      <% if @shares && @shares.any? %>
+      <% if @authorizations && @authorizations.any? %>
         <p>Sharing with:</p>
         <div>
-          <% @shares.each do |share| %>
-            <%= render partial: 'share', locals: { share: share } %>
+          <% @authorizations.each do |authorization| %>
+            <%= render partial: 'share', locals: { authorization: authorization } %>
           <% end %>
         </div>
       <% end %>
     </div>
     <p>
-      <% unless current_user? @sound.owner %>
+      <% unless @sound.owned_by?(current_user) %>
         Uploaded by: <%= link_to(@sound.owner.full_name, @sound.owner) %>
       <% end %>
     </p>
@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<% if current_user? @sound.owner %>
+<% if @sound.owned_by?(current_user) %>
   <div class="row">
     <div class="col-sm-12 top-buffer">
       <div class="text-center top-buffer">

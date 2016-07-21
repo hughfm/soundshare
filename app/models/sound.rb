@@ -16,7 +16,11 @@ class Sound < ActiveRecord::Base
     "Sound from #{ created_at.strftime "%A, %B %d" }"
   end
 
-  def owner?(user)
+  def owned_by?(user)
     owner == user
+  end
+
+  def authorized_to?(user)
+    authorized_users.include?(user)
   end
 end

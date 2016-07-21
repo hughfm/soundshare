@@ -1,11 +1,9 @@
 class SoundsController < ApplicationController
-  before_action :set_sound, only: [:show, :edit, :update, :destroy, :share, :authorize, :deauthorize]
-  before_action :logged_in_user, except: [:index, :show]
-  before_action :authorized_to_listen, only: :show
-  before_action :correct_user, only: [:edit, :update, :destroy, :share, :authorize, :deauthorize]
+  skip_before_action :require_login, only: [:index, :show]
+  skip_after_action :verify_policy_scoped, only: [:index]
 
   def index
-    if logged_in?
+    if signed_in?
       @sounds = current_user.sound_feed.paginate(page: params[:page])
     else
       @sounds = Sound.public_share.paginate(page: params[:page])
@@ -14,29 +12,36 @@ class SoundsController < ApplicationController
 
   def new
     @sound = current_user.sounds.build
+    authorize @sound
   end
 
   def create
     @sound = current_user.sounds.build sound_params
+    authorize @sound
+
     if @sound.save
       flash[:success] = "Sound has been saved."
       redirect_to root_path
     else
-      #########################
-      ## THIS DOESN'T WORK!! ##
-      #########################
       render :new
     end
   end
 
   def show
-    @shares = @sound.authorized_users if current_user?(@sound.owner)
+    @sound = Sound.find params[:id]
+    authorize @sound
+    @authorizations = @sound.authorizations if @sound.owned_by?(current_user)
   end
 
   def edit
+    @sound = Sound.find params[:id]
+    authorize @sound
   end
 
   def update
+    @sound = Sound.find params[:id]
+    authorize @sound
+
     if @sound.update sound_params
       flash[:success] = "Sound updated."
       redirect_to @sound
@@ -46,6 +51,9 @@ class SoundsController < ApplicationController
   end
 
   def destroy
+    @sound = Sound.find params[:id]
+    authorize @sound
+
     if @sound.destroy
       flash[:success] = "Sound deleted."
       redirect_to root_path
@@ -56,43 +64,14 @@ class SoundsController < ApplicationController
   end
 
   def share
+    @sound = Sound.find params[:id]
+    authorize @sound
     @users = User.where.not(id: current_user.id)
   end
 
-  def authorize
-    user_ids = params[:shares][:user_ids].reject { |item| @sound.authorized_users.ids.map(&:to_s).include? item }
-    users = User.find user_ids
-    sound = Sound.find params[:id]
-
-    sound.authorized_users << users
-
-    redirect_to sound
-  end
-
-  def deauthorize
-    user = User.find params[:user_id]
-    authorization = Authorization.find_by user: user, sound: @sound
-    authorization.destroy
-    redirect_to @sound
-  end
-
   private
-    def sound_params
-      params.require(:sound).permit(:name, :audio, :public)
-    end
 
-    def set_sound
-      @sound = Sound.find params[:id]
-    end
-
-    def correct_user
-      redirect_to root_url unless current_user?(@sound.owner)
-    end
-
-    def authorized_to_listen
-      unless @sound.public? || current_user?(@sound.owner)
-        flash[:danger] = "Not authorized to listen to this sound."
-        redirect_to root_url
-      end
-    end
+  def sound_params
+    params.require(:sound).permit(:name, :audio, :public)
+  end
 end

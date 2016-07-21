@@ -4,6 +4,8 @@
   </div>
 
   <div class="col-sm-7">
-    <%= render partial: 'form', locals: { action: "Sign Up", fields: "signup_fields" } %>
+
+    <%= render partial: 'users/form', locals: { action: t('helpers.submit.user.create'), fields: "signup_fields" } %>
+
   </div>
 </div>
