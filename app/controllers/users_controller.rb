@@ -53,9 +53,10 @@ class UsersController < Clearance::UsersController
     authorize @user
 
     if @user.destroy
-      flash[:success] = "User deleted."
-      redirect_to users_path
+      flash[:success] = "Your account has been deleted."
+      redirect_to root_path
     else
+      flash[:alert] = "Something went wrong."
       redirect_to @user
     end
   end
