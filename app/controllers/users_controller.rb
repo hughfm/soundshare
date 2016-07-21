@@ -50,6 +50,7 @@ class UsersController < Clearance::UsersController
 
   def destroy
     @user = User.find(params[:id])
+    authorize @user
 
     if @user.destroy
       flash[:success] = "User deleted."
